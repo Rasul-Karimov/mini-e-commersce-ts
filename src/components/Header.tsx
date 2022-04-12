@@ -1,22 +1,18 @@
 import React, { useEffect, useRef, useState } from "react"
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { IoLogoAngular } from "react-icons/io"
-import { IcartItem } from "./types"
+import { GoodsType, } from "./types"
 
 import "./header.css"
+import { useSelector } from "react-redux"
+import { RootState } from "../redux/rootReducer"
 const Header: React.FC = () => {
     const [isShowedCart, setIsShowedCart] = useState<boolean>(false)
     const cart = useRef<HTMLDivElement>(null)
     const button = useRef<HTMLButtonElement>(null)
 
-    const cartItems: IcartItem[] = [
-        {
-            imagePath: "https://object.pscloud.io/cms/cms/Photo/img_0_62_2205_0_6.png",
-            name: "Ноутбук MCI",
-            count: 1,
-            price: 4500,
-        }
-    ]
+    let cartItems = useSelector<RootState, GoodsType[]>((state) => state.cart)
+
     useEffect(function () {
         window.addEventListener("click", (e: any) => {
             if (!e.path.includes(cart.current) && !e.path.includes(button.current)) {
@@ -24,8 +20,8 @@ const Header: React.FC = () => {
             }
         })
     }, [])
-    const total = cartItems.reduce((accum, elem) => accum + elem.price, 0)
-    const totalCount = cartItems.reduce((acc, item) => acc + item.count, 0)
+    const total = Object.values(cartItems)?.reduce((accum, elem) => accum + elem?.price, 0)
+    const totalCount = Object.values(cartItems)?.reduce((acc, item) => acc + item?.count, 0)
 
     return (<header className="header">
         <div className="container">
@@ -38,7 +34,7 @@ const Header: React.FC = () => {
                     <span> {totalCount}</span>
                 </button>
                 <div ref={cart} className="header__cart cart" style={isShowedCart ? { display: "block" } : { display: "none" }}>
-                    {cartItems?.map(item => (
+                    {Object.values(cartItems).map(item => (
                         <div className="cart__block" key={item.name}>
                             <img src={item.imagePath} alt={item.name} width="55" height="55" />
                             <div className="cart__info">
@@ -49,7 +45,7 @@ const Header: React.FC = () => {
                                     {item.count} x  {item.price} $
 
                                 </div>
-                                <div className="cart__delete">удалить</div>
+                                <button className="cart__delete">удалить</button>
                             </div>
                         </div>
                     ))}

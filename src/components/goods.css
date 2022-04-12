@@ -42,6 +42,7 @@ padding: 20px;
 
 
 .goods__item-addcart{
+    cursor: pointer;
     border-radius: 10px;
  color:#00c6ff;
  padding: 10px 20px;
