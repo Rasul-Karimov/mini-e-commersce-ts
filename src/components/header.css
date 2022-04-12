@@ -47,8 +47,11 @@ right: 20px;
     display: flex;
     gap: 15px;
     font-size: 19px;
+    min-width: 200px;
 }
 .cart{
+    background-color: #8FC1E3;
+
     border-radius: 5px;
     box-shadow: 5px 5px 5px  rgb(223, 222, 222);
     padding: 20px;
