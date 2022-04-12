@@ -1,0 +1,44 @@
+.container{
+    max-width: 1600px;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+.header{
+    background-color: #0C0032;
+}
+.header__logo{
+    font-size: 40px;
+    color:  white;
+}
+.header__button{
+    border: none;
+    background-color: transparent;
+    font-size: 40px;
+    cursor:pointer;
+    transition: all 300ms ease;
+    position: relative;
+    color:  white;
+}
+.header__button:hover{
+   color:  rgb(74, 74, 255);
+}
+.header__cart{
+position: absolute;
+top: 90px;
+right: 20px;
+}
+.header__button span{
+    position: absolute;
+    top: 30%;
+    font-size: 20px;
+    color: red;
+}
+.header__block{
+     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 10px 0;
+    min-width: 100px;
+   
+}
