@@ -4,13 +4,14 @@ import { IoLogoAngular } from "react-icons/io"
 import { GoodsType, } from "./types"
 
 import "./header.css"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../redux/rootReducer"
+import { deleteFromCart } from "../redux/cart/actions"
 const Header: React.FC = () => {
     const [isShowedCart, setIsShowedCart] = useState<boolean>(false)
     const cart = useRef<HTMLDivElement>(null)
     const button = useRef<HTMLButtonElement>(null)
-
+    const dispatch = useDispatch();
     let cartItems = useSelector<RootState, GoodsType[]>((state) => state.cart)
 
     useEffect(function () {
@@ -20,6 +21,12 @@ const Header: React.FC = () => {
             }
         })
     }, [])
+
+
+    function handleDelete(id: string) {
+        dispatch(deleteFromCart(id))
+    }
+
     const total = Object.values(cartItems)?.reduce((accum, elem) => accum + elem?.price, 0)
     const totalCount = Object.values(cartItems)?.reduce((acc, item) => acc + item?.count, 0)
 
@@ -45,7 +52,7 @@ const Header: React.FC = () => {
                                     {item.count} x  {item.price} $
 
                                 </div>
-                                <button className="cart__delete">удалить</button>
+                                <button onClick={() => handleDelete(item._id)} className="cart__delete">удалить</button>
                             </div>
                         </div>
                     ))}

@@ -18,7 +18,13 @@ const cartReducer = (state = initialValue, action: TypeActionCart) => {
         case actionTypes.CART_REMOVE_ITEM:
             {
                 let cart = [...state]
-                cart = cart.filter(item => item._id == action.payload ? false : true)
+                cart.forEach((item, index) => {
+                    if (item._id === action.payload && item.count > 1) {
+                        item.count = item.count - 1;
+                    } else if (item._id === action.payload && item.count == 1) {
+                        cart.splice(index, 1)
+                    }
+                })
                 return cart
             }
         default:
